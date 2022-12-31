@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "demotivator-bot"
-version = "0.1.1"
+version = "0.1.2"
 description = "Супер-пупер-мега демотиватор-бот для гифок на стероидах и FFmpeg."
 authors = ["Daniel Kotofiev <nesclass@yandex.ru>"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 aiogram = "^2.24"
 ffmpeg-python = "^0.2.0"
 

@@ -1,6 +1,7 @@
 # Предновогодний челлендж: прототип популярного «Ржакабота» (@super_rjaka_demotivator_bot)
 # Минимальная жизнеспособная версия, нуждается в многочисленных доработках.
 
+import os
 import ffmpeg
 import logging
 
@@ -82,6 +83,7 @@ async def process_media(
     else:  # если нету контекстного меню
         await message.reply(reply)
 
+    # TODO: удаление темп-файлов
     input_file = f"inputs/{message.message_id}.{file_format}"  # темп-файл для исходника
     output_file = f"results/{message.message_id}.{file_format}"  # темп-файл для демика
 
@@ -89,7 +91,7 @@ async def process_media(
 
     try:
         # генерация демика
-        generate_demotivator(input_file, output_file, text)
+        await generate_demotivator(input_file, output_file, text)
     except ffmpeg.Error as exc:
         logging.exception(exc)
         return await message.reply("Обработка демика была прервана ошибкой FFmpeg.")
