@@ -1,13 +1,14 @@
 [tool.poetry]
 name = "demotivator-bot"
-version = "0.1.2"
-description = "Супер-пупер-мега демотиватор-бот для гифок на стероидах и FFmpeg."
+version = "0.2.0"
+description = "Image processing bot that creates «demotivators» from given media. Based on aiogram and OpenCV."
 authors = ["Daniel Kotofiev <nesclass@yandex.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 aiogram = "^2.24"
-ffmpeg-python = "^0.2.0"
+Pillow = "^9.4.0"
+opencv-python = "^4.7.0"
 
 [tool.poetry.dev-dependencies]
 

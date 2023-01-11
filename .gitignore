@@ -1,5 +1,13 @@
-.idea
+poetry.lock
+__pycache__/
+*.py[cod]
+*~
+\#*
+.#*
+*.swp
+
 bins
 inputs
 results
-poetry.lock
+font.ttf
+background.png

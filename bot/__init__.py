@@ -1,6 +1,3 @@
-# Предновогодний челлендж: прототип популярного «Ржакабота» (@super_rjaka_demotivator_bot)
-# Минимальная жизнеспособная версия, нуждается в многочисленных доработках.
-
 import os
 
 from aiogram import Bot, Dispatcher, types

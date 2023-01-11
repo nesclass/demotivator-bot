@@ -1,9 +1,6 @@
-# Предновогодний челлендж: прототип популярного «Ржакабота» (@super_rjaka_demotivator_bot)
-# Минимальная жизнеспособная версия, нуждается в многочисленных доработках.
-
-import os
-import ffmpeg
+import asyncio
 import logging
+import functools
 
 from aiogram import types
 from aiogram.dispatcher import FSMContext
@@ -89,12 +86,22 @@ async def process_media(
 
     await bot.download_file(file.file_path, input_file)
 
+    """
     try:
         # генерация демика
         await generate_demotivator(input_file, output_file, text)
     except ffmpeg.Error as exc:
         logging.exception(exc)
         return await message.reply("Обработка демика была прервана ошибкой FFmpeg.")
+    """
+
+    try:
+        # TODO: ну хуйня же, не? может стоит переделать..
+        p_func = functools.partial(generate_demotivator, input_file, output_file, text)
+        await asyncio.get_running_loop().run_in_executor(None, p_func)
+    except Exception as exc:
+        logging.exception(exc)
+        return await message.reply("Обработка демика была прервана ошибкой.")
 
     # вызов функции враппера
     await content_type_handlers[file_format](message, output_file)

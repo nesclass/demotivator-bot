@@ -6,7 +6,7 @@ from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 
 
-# вдохновлено: https://ru.stackoverflow.com/q/1394009/271437
+# слизано с: https://ru.stackoverflow.com/q/1394009/271437
 # собирает медиа в один альбом, предотвращая размножение сообщений на каждое вложение
 class MediaMergeMiddleware(BaseMiddleware):
     album_data: dict = {}
