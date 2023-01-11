@@ -126,22 +126,38 @@ def write_image(input_file: str, output_file: str, template: np.ndarray):
 
 
 def generate_demotivator(input_file: str, output_file: str, text: str = "зачем"):
-    # opencv image (numpy matrix) -> pil image
-    im_template = Image.fromarray(TEMPLATE)
-    im_draw = ImageDraw.Draw(im_template)
     font = generate_font_from_text(text)
 
-    im_draw.text(
-        # TODO: манипуляции с матрицами, аккуратное выравнивание по центру
-        xy=(WIDTH / 2, HEIGHT - TEXT_AREA_HEIGHT / 2),
-        text=text,
-        font=font,
-        fill="#ffffff",
-        anchor="mm"
-    )
+    _, top, right, bottom = font.getbbox(text)
+    text_matrix = np.zeros((bottom, right, 3), dtype=np.uint8)
+
+    # opencv image (numpy matrix) -> pil image
+    image = Image.fromarray(text_matrix)
+    draw = ImageDraw.Draw(image)
+    draw.text((0, 0), text=text, font=font, fill="#fff")
 
     # pil image -> opencv image (numpy matrix)
-    template = np.array(im_template)  # noqa
+    text_matrix = np.array(image)[top:]  # noqa
+    # print(text_matrix.shape[0], text_matrix.shape[1])
+
+    # margin + container + matrix + container + margin = width
+    # => container = (width - 2*margin - matrix) / 2
+    # container + matrix + container = text area height
+    # height - container - matrix = cord
+    # container = (tah - matrix)/2
+
+    text_width = text_matrix.shape[1]
+    text_height = text_matrix.shape[0]
+
+    container_x = (WIDTH - 2*FRAME_MARGIN_X - text_width) // 2
+    offset_x = FRAME_MARGIN_X + container_x
+
+    container_y = (TEXT_AREA_HEIGHT - text_height) // 2
+    offset_y = HEIGHT - container_y
+
+    template = TEMPLATE
+    template[offset_y-text_height:offset_y,
+             offset_x:offset_x+text_width] = text_matrix
 
     if input_file.endswith(".mp4"):  # если видео
         return write_video(input_file, output_file, template)
