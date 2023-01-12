@@ -155,7 +155,7 @@ def generate_demotivator(input_file: str, output_file: str, text: str = "зач�
     container_y = (TEXT_AREA_HEIGHT - text_height) // 2
     offset_y = HEIGHT - container_y
 
-    template = TEMPLATE
+    template = np.copy(TEMPLATE)
     template[offset_y-text_height:offset_y,
              offset_x:offset_x+text_width] = text_matrix
 
