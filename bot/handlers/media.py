@@ -1,3 +1,4 @@
+import time
 import asyncio
 import logging
 import functools
@@ -43,8 +44,10 @@ async def process_media(
         state: FSMContext,                  # контекст состояния, необходим для его управлением
         file_id: str,                       # идентификатор медиа-вложения
         file_format: str,                   # формат медиа-вложения (mp4, jpg)
+
         # TODO: подумать над целесообразностью этого параметра, вероятно его можно убрать
         is_album: bool,                     # отправлялись ли вложения как альбом
+
         text: str,                          # текст для демика (случайный, пользовательский)
         menu: types.Message | None = None,  # оригинал контекстного меню с клавиатурой (если было вызвано)
 ):
@@ -85,15 +88,6 @@ async def process_media(
     output_file = f"results/{message.message_id}.{file_format}"  # темп-файл для демика
 
     await bot.download_file(file.file_path, input_file)
-
-    """
-    try:
-        # генерация демика
-        await generate_demotivator(input_file, output_file, text)
-    except ffmpeg.Error as exc:
-        logging.exception(exc)
-        return await message.reply("Обработка демика была прервана ошибкой FFmpeg.")
-    """
 
     try:
         # TODO: ну хуйня же, не? может стоит переделать..
