@@ -34,6 +34,7 @@ and run `python -m bot` to enjoy your demotivators without any watermarks.
 - [ ] move to BytesIO (buffer) from temporary files (all the data in memory)
 - [ ] creating demotivators using inline menu 
 - [ ] optimize runtime with [`cv::parallel_for`](https://docs.opencv.org/4.x/dc/ddf/tutorial_how_to_use_OpenCV_parallel_for_new.html)
+- [ ] add i18n support
 
 ## Donations
 
